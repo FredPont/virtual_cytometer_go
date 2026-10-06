@@ -179,12 +179,6 @@ the same window.
   not just a flat picture.
 
 
-## 🎥 Demo Videos
-
-Demo videos of the software in action can be found in the supplemental data of the [reference article](https://doi.org/10.1093/nargab/lqaa025).
-
-
-
 ## Quickstart (precompiled release)
 
 No Go toolchain needed — just download and run.
@@ -216,10 +210,7 @@ package on your distro.
    since the binary isn't code-signed. Click **More info**, then **Run
    anyway**.
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/scvc-go-port.git
-   cd scvc-go-port
+
 
 ### Data format
 
