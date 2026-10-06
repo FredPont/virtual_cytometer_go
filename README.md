@@ -4,7 +4,7 @@
 [![Go Version](https://img.shields.io/badge/Go-1.22+-blue.svg)](https://go.dev/)
 [![Platform](https://img.shields.io/badge/Platform-Desktop-lightgrey.svg)](https://fyne.io/)
 
-A native desktop port of the **Single-Cell Virtual Cytometer** (originally written in JS/Plotly) to **Go** using the **Fyne** toolkit.
+A native desktop port of the **Single-Cell Virtual Cytometer** (originally written in JS/Plotly) to **Go** using the **Fyne** toolkit (the software is a compiled binary, no complex installation required !).
 
 ## 📖 Description
 
@@ -14,6 +14,21 @@ This specific repository is a **high-performance port** of the original JavaScri
 * **Enhanced Memory Management:** Ability to handle millions of cells via direct rasterization.
 * **Smoother Interaction:** Native desktop responsiveness for zooming and panning.
 * **Advanced Gating:** Improved quadrant gating and sequential selection tools.
+* **Works great with Single-Cell Signature Explorer:** Virtual Cytometer pairs naturally with
+[Single-Cell Signature Explorer](https://github.com/FredPont/Single-CellSignatureExplorer),
+which computes pathway/signature scores per cell extremely fast. Since
+Signature Explorer's output is just another column per cell, you can
+load it directly in Virtual Cytometer and use any pathway score exactly
+like a gene, protein, or marker — as an X/Y axis, a gating criterion, or
+a "Color by" column — right alongside your regular expression data.
+
+## 📝 How to Cite
+
+If you use this software in your research, please cite the original work:
+
+> [Pont, F., Tosolini, M., Gao, Q., Perrier, M., Madrid-Mencía, M., Huang, T. S., ... & Fournié, J. J. (2020). Single-Cell Virtual Cytometer allows user-friendly and versatile analysis and visualization of multimodal single cell RNAseq datasets. NAR genomics and bioinformatics, 2(2), lqaa025.](https://doi.org/10.1093/nargab/lqaa025)
+
+
 
 ## 📺 ScreenShots
 ### Single-Cell RNAseq
@@ -45,7 +60,7 @@ This specific repository is a **high-performance port** of the original JavaScri
 ### 3 gates stacked
 <img src="./img/screenshot_09.png" alt="ScreenShot" width="1920">
 
-## Akoya Phenocyler
+## Microscopy
 #### Color by Ki67 (2.2 millions cells)
 <img src="./img/screenshot_10.png" alt="ScreenShot" width="1920">
 
@@ -168,12 +183,6 @@ the same window.
 
 Demo videos of the software in action can be found in the supplemental data of the [reference article](https://doi.org/10.1093/nargab/lqaa025).
 
-## 📝 How to Cite
-
-If you use this software in your research, please cite the original work:
-
-> [**DOI: 10.1093/nargab/lqaa025**](https://doi.org/10.1093/nargab/lqaa025)
-
 
 
 ## Quickstart (precompiled release)
@@ -212,8 +221,43 @@ package on your distro.
    git clone https://github.com/YOUR_USERNAME/scvc-go-port.git
    cd scvc-go-port
 
+### Data format
+
+The app reads a plain text table — `.csv`, `.tsv`, or `.txt` — with
+comma, tab, or semicolon as the delimiter; it's detected automatically,
+so you don't need to pick one. Requirements:
+
+- **A header row** on the first line, naming every column.
+- **The first column is the cell identifier** (an id, barcode, or any
+  value unique per row) — required, and used for CSV export and for
+  matching cells when importing an overlay file.
+- **Every other column is one variable per cell**: marker intensities,
+  UMAP/t-SNE coordinates, cluster numbers, cell type labels, etc., in
+  any order.
+
+Each column's type — numeric or text — is detected automatically from
+its first data row, so keep a given column consistently one or the
+other (don't mix numbers and text within the same column). Numeric
+columns (markers, coordinates, cluster ids…) can be used as X/Y axes or
+for "Color by"; text columns (cell type names, sample names…) are
+offered only for "Color by", since they wouldn't make sense as a plot
+axis.
+
+Example:
+
+| id     | CD3 | CD4 | CD8 | CD19 | UMAP_1 | UMAP_2 | cluster | cell_type |
+|--------|-----|-----|-----|------|--------|--------|---------|-----------|
+| cell_1 | 120 | 45  | 10  | 300  | -3.2   | 5.1    | 2       | T cell    |
+| cell_2 | 15  | 8   | 210 | 20   | 1.7    | -2.4   | 0       | B cell    |
+
+
+A cell left blank, or containing something that isn't a number, in an
+otherwise numeric column is treated as missing data for that cell
+(shown as muted grey when used for "Color by", and excluded from
+exported statistics) rather than failing the whole import.
 
 ## 🚀 Installation & Usage
+
 
 ### Prerequisites
 
