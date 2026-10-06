@@ -15,6 +15,49 @@ This specific repository is a **high-performance port** of the original JavaScri
 * **Smoother Interaction:** Native desktop responsiveness for zooming and panning.
 * **Advanced Gating:** Improved quadrant gating and sequential selection tools.
 
+## 📺 ScreenShots
+### Single-Cell RNAseq
+#### Quadrants and UMAP with density plot (5559 cells)
+<img src="./img/screenshot_01.png" alt="ScreenShot" width="1920">
+
+#### Simple gate
+<img src="./img/screenshot_02.png" alt="ScreenShot" width="1920">
+
+#### Gate with stack
+<img src="./img/screenshot_03.png" alt="ScreenShot" width="1920">
+
+#### Quadrants and t-SNE (7776 cells)
+<img src="./img/screenshot_04.png" alt="ScreenShot" width="1920">
+
+#### Color by clusters without density plot
+<img src="./img/screenshot_05.png" alt="ScreenShot" width="1920">
+
+#### Color by clusters (178597 cells)
+<img src="./img/screenshot_06.png" alt="ScreenShot" width="1920">
+
+#### Color by pathway (apoptosis)
+<img src="./img/screenshot_07.png" alt="ScreenShot" width="1920">
+
+
+#### Color by pathway (Cell Cycle)
+<img src="./img/screenshot_08.png" alt="ScreenShot" width="1920">
+
+### 3 gates stacked
+<img src="./img/screenshot_09.png" alt="ScreenShot" width="1920">
+
+## Akoya Phenocyler
+#### Color by Ki67 (2.2 millions cells)
+<img src="./img/screenshot_10.png" alt="ScreenShot" width="1920">
+
+#### Color by PCNA
+<img src="./img/screenshot_11.png" alt="ScreenShot" width="1920">
+
+#### Quadrants CD8/CD20
+<img src="./img/screenshot_12.png" alt="ScreenShot" width="1920">
+
+#### Zoom (CD44)
+<img src="./img/screenshot_14.png" alt="ScreenShot" width="1920">
+
 ## ✨ Features
 
 * **Multi-panel Synchronization:** Cross-plot selection (lasso or rectangular brush) in one panel automatically highlights the same cells in the other.
@@ -24,6 +67,102 @@ This specific repository is a **high-performance port** of the original JavaScri
     * Cumulative "gate only" display.
     * Quadrant-gate mode with real-time live counts and percentages.
 * **Robust Data Import:** Intelligent detection of delimiters (Tab, Semicolon, Comma) for CSV/TSV files.
+
+
+
+Single-Cell Virtual Cytometer shows two linked scatter plots side by
+side. Any selection, gate, or color choice you make on one plot is
+reflected on the other — they share the same underlying cells, not just
+the same window.
+
+## Plots & navigation
+
+- **Two independent, linked plots** — pick any pair of numeric columns
+  (markers, UMAP/t-SNE coordinates, anything numeric) on each panel
+  independently.
+- **Graduated axis frame**, always on: a proper bordered frame with tick
+  marks and numeric labels on both axes, the way a real scientific plot
+  should look — not a bare scatter of dots.
+- **Marginal density histograms** ("Plot density" toggle) along the top
+  and right edges, flow-cytometry style, showing the per-slice cell
+  density for whatever's currently in view.
+- **Pan / zoom / select tool switcher** per plot: Rectangle, Lasso, or
+  Pan. Zooming is centered on the cursor and only ever affects the inner
+  plot area — the axis frame and histograms stay in place and keep
+  updating to match.
+- Built to stay smooth from a few thousand cells up into the millions:
+  points are rasterized directly rather than created as individual UI
+  objects, and on-screen rendering adaptively sub-samples dense views
+  (gating, statistics, and exports always use every single cell,
+  regardless of what's shown on screen).
+
+## Selection
+
+- **Rectangle or lasso brushing**, on either plot, highlights the same
+  cells on both — the dashed outline of your selection stays visible
+  until you make a new one.
+- **Undo** steps back through your last several selections.
+- A plain click clears the current selection.
+
+## Gates
+
+- **Freeze gate** — turns brushing into *sequential* (hierarchical)
+  gating: each new selection only keeps cells that were already
+  selected, so you can narrow a population down step by step, switching
+  axes between steps if you like.
+- **Gate only** — hides every cell outside the current selection on both
+  plots, the classic "show me just this gate" display.
+- **Stack** — instead of replacing your selection, each new one is added
+  as an independently colored population on top of the previous ones.
+  Handy for comparing several gates picked on different marker
+  combinations side by side.
+- **Quadrant gate** — click to drop a crosshair on either plot; live cell
+  counts and percentages appear in each of the four quadrants, and the
+  four quadrant colors carry over to the *other* plot too, computed from
+  the same cells.
+- **Overlay cells from file** — bring in a list of cell ids (plain text,
+  or a file exported by this app) and highlight them, in one consistent
+  color, on both plots.
+
+## Color by
+
+- A third picker, independent of the plot axes, colors cells by any
+  column:
+  - a **text** column gets one flat color per distinct value;
+  - a **numeric** column gets a continuous color gradient by default, or
+    one color per value if it has few enough distinct values — a
+    cluster id, for instance — detected automatically, or forced with
+    the **"Color by classes"** checkbox.
+- Classes beyond the first handful don't run out of colors: once there
+  are more than the qualitative palette comfortably covers, further
+  classes are generated by sampling the chosen gradient, so 20+ clusters
+  still get 20+ genuinely distinct colors.
+- **Gradient choice** — Viridis, Turbo, or Heat.
+- **Min% / Max% clipping sliders** stretch the color scale to a chosen
+  sub-range of the data, live — so a few abnormally low or high cells
+  don't wash out the contrast for everyone else.
+
+## Appearance
+
+- A dark theme with a purple accent, applied throughout the interface.
+- **White or black plot background**, switched live, with everything
+  drawn on it (frame, histograms, labels) automatically adapting for
+  contrast.
+- Per-plot adjustable dot size.
+
+## Export
+
+- **Selected cells** to CSV, at full precision, in original row order.
+- **Quadrant membership** (Q1–Q4) for the whole dataset to CSV, with
+  per-quadrant counts and percentages included as header comments.
+- **Gate statistics** to CSV: mean, median, SD, variance, and CV for
+  every numeric column, for the current selection (and for each
+  individual Stack layer, if you're using Stack).
+- **Plot images**, as PNG or SVG, in the same white/black background
+  currently shown on screen. SVG export keeps the frame, axis labels,
+  histograms, and selection outline as real, scalable vector elements,
+  not just a flat picture.
+
 
 ## 🎥 Demo Videos
 
@@ -35,6 +174,45 @@ If you use this software in your research, please cite the original work:
 
 > [**DOI: 10.1093/nargab/lqaa025**](https://doi.org/10.1093/nargab/lqaa025)
 
+
+
+## Quickstart (precompiled release)
+
+No Go toolchain needed — just download and run.
+
+### Linux
+
+1. Go to the [Releases](../../releases) page and download `scvc` from the
+   latest release.
+2. Make it executable:
+```bash
+   chmod +x scvc
+```
+3. Run it:
+```bash
+   ./scvc
+```
+
+If it doesn't start, your system may be missing the OpenGL/X11 runtime
+libraries — normally already present on any Linux desktop, but if not:
+`sudo apt install libgl1 libx11-6` (Debian/Ubuntu), or the equivalent
+package on your distro.
+
+### Windows
+
+1. Go to the [Releases](../../releases) page and download `scvc.exe` from
+   the latest release.
+2. Double-click `scvc.exe` to run it.
+3. Windows may show a "Windows protected your PC" SmartScreen warning,
+   since the binary isn't code-signed. Click **More info**, then **Run
+   anyway**.
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/scvc-go-port.git
+   cd scvc-go-port
+
+
 ## 🚀 Installation & Usage
 
 ### Prerequisites
@@ -42,12 +220,6 @@ If you use this software in your research, please cite the original work:
 * [Go](https://go.dev/) (version 1.22 or higher)
 * A C compiler (e.g., `gcc` on Linux/macOS, or `MinGW` on Windows) for the Fyne graphics drivers.
 
-### Quick Start
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/scvc-go-port.git
-   cd scvc-go-port
 
 ## 🛠 Compilation via Makefile
 
