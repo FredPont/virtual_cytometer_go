@@ -1,4 +1,4 @@
-# Virtual Cytometer (Go + Fyne Port)
+# Virtual Cytometer Go
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Go Version](https://img.shields.io/badge/Go-1.22+-blue.svg)](https://go.dev/)
