@@ -1,4 +1,4 @@
-# Single-Cell Virtual Cytometer (Go + Fyne Port)
+# Virtual Cytometer (Go + Fyne Port)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Go Version](https://img.shields.io/badge/Go-1.22+-blue.svg)](https://go.dev/)
@@ -44,6 +44,9 @@ If you use this software in your research, please cite the original work:
 #### Quadrants and t-SNE (7776 cells)
 <img src="./img/screenshot_04.png" alt="ScreenShot" width="1920">
 
+#### Right selection (7776 cells)
+<img src="./img/Right_selection.PNG" alt="ScreenShot" width="1920">
+
 #### Color by clusters without density plot
 <img src="./img/screenshot_05.png" alt="ScreenShot" width="1920">
 
@@ -67,11 +70,17 @@ If you use this software in your research, please cite the original work:
 #### Color by PCNA
 <img src="./img/screenshot_11.png" alt="ScreenShot" width="1920">
 
-#### Quadrants CD8/CD20
-<img src="./img/screenshot_12.png" alt="ScreenShot" width="1920">
+#### Color by CD21
+<img src="./img/CD21.PNG" alt="ScreenShot" width="1920">
 
-#### Zoom (CD44)
-<img src="./img/screenshot_14.png" alt="ScreenShot" width="1920">
+#### Quadrants CD44/Ki67
+<img src="./img/quadrants_CD44_Ki67.PNG" alt="ScreenShot" width="1920">
+
+#### Zoom (HLA DR)
+<img src="./img/HLA_DR_zoom.PNG" alt="ScreenShot" width="1920">
+
+#### Color by cluster + Gate
+<img src="./img/Clusters_gate.PNG" alt="ScreenShot" width="1920">
 
 ## ✨ Features
 
@@ -250,7 +259,7 @@ exported statistics) rather than failing the whole import.
 ## 🚀 Installation & Usage
 
 
-### Prerequisites
+### Prerequisites to compile
 
 * [Go](https://go.dev/) (version 1.22 or higher)
 * A C compiler (e.g., `gcc` on Linux/macOS, or `MinGW` on Windows) for the Fyne graphics drivers.
