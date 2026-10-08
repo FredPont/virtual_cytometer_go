@@ -4,7 +4,7 @@
 [![Go Version](https://img.shields.io/badge/Go-1.22+-blue.svg)](https://go.dev/)
 [![Platform](https://img.shields.io/badge/Platform-Desktop-lightgrey.svg)](https://fyne.io/)
 
-A native desktop port of the **Single-Cell Virtual Cytometer** (originally written in JS/Plotly) to **Go** using the **Fyne** toolkit (the software is a compiled binary, no complex installation required !).
+A native desktop port of the **Single-Cell Virtual Cytometer** (originally written in JS/Plotly [here](https://github.com/FredPont/single-cell-virtual-cytometer)) to **Go** using the **Fyne** toolkit (the software is a compiled binary, no complex installation required !).
 
 ## 📖 Description
 
